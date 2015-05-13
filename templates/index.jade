@@ -1,0 +1,15 @@
+extends _includes/_layout
+
+mixin block(key, obj)
+  section(id=key, class=obj.meta.css)
+    .contain
+      if obj.meta.logo
+        img(src=obj.meta.logo).logo
+      h2.title #{obj.meta.title}
+      .content !{obj.html}
+      if obj.meta.link
+        a(href=obj.meta.link.url).link #{obj.meta.link.title}
+
+block content
+  for key in markade._.drop(Object.keys($$), 1)
+    +block(key, $$[key])
